@@ -1,0 +1,64 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "shorten-url-lambda:index.handler (nodejs20.x)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/shorten-url-lambda",
+        "lambdaHandler": "index.handler"
+      },
+      "lambda": {
+        "runtime": "nodejs20.x",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "shoren-url-forward:index.handler (nodejs20.x)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/shoren-url-forward",
+        "lambdaHandler": "index.handler"
+      },
+      "lambda": {
+        "runtime": "nodejs20.x",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "shorten-url-forward:index.handler (nodejs20.x)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/shorten-url-forward",
+        "lambdaHandler": "index.handler"
+      },
+      "lambda": {
+        "runtime": "nodejs20.x",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "shorten-url-lambda:index.handler (nodejs20.x)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/shorten-url-lambda",
+        "lambdaHandler": "index.handler"
+      },
+      "lambda": {
+        "runtime": "nodejs20.x",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    }
+  ]
+}

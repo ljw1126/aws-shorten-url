@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Static Hosting</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin-top: 100px;
+        }
+
+        .container {
+            text-align: center;
+            width: 500px;
+        }
+
+        input[type="text"] {
+            width: 500px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            transform: scale(1.05);
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .response {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+            word-wrap: break-word;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .response.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Make Shorten URL</h2>
+        <input type="text" id="urlInput" placeholder="주소를 입력하세요">
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('urlInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const url = event.target.value.trim();
+                
+                if(url) {
+                  generateURL(url);
+                }
+            }
+        });
+
+        const API_GATEWAY_URL = "https://thinadr.store/create/shorten-url-lambda";
+        async function generateURL(url) {
+            const el = document.getElementById('response');
+            el.classList.remove('show');
+            el.textContent = ''; 
+
+            try {
+                const response = await fetch(API_GATEWAY_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 'native_url': url })
+                });
+
+                const data = await response.json();
+                el.textContent = `https://${data.forwardUrl}/${data.shortId}`;
+                el.classList.add('show');
+            } catch (error) {
+                el.textContent = 'Error: ' + error.message;
+                el.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>
